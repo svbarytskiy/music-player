@@ -1,24 +1,22 @@
-import { FC } from "react"
-import './ToolBar.css'
+import { FC } from "react";
+import "./ToolBar.css";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { SoundTime } from "../SoundTime/SoundTime";
 import { Pause, Play, Square } from "lucide-react";
 import { ChangeSound } from "../ChangeSound/ChangeSound";
 
 interface ToolBarProps {
-    updateProgress: (progress: number) => void; // Функція для оновлення прогресу
-    progress: number; // Прогрес пісні (у відсотках)
-    togglePlayPause: () => void; // Функція для перемикання відтворення/паузи
-    isPlay: boolean; // Статус відтворення (грає чи на паузі)
-    // SkipTime: (direction: 'forward' | 'backward') => void; // Функція для скіпу часу вперед/назад
-    currentTime: number; // Поточний час пісні
-    soundTime: number; // Загальний час пісні
-    volume: number; // Поточний рівень гучності
+    updateProgress: (progress: number) => void;
+    progress: number;
+    togglePlayPause: () => void;
+    isPlay: boolean;
+    currentTime: number;
+    soundTime: number;
+    volume: number;
     changeVolume: (volume: number) => void;
     stopPlaying: () => void;
     toggleVolume: () => void;
 }
-
 
 const ToolBar: FC<ToolBarProps> = ({
     updateProgress,
@@ -30,7 +28,7 @@ const ToolBar: FC<ToolBarProps> = ({
     volume,
     changeVolume,
     stopPlaying,
-    toggleVolume
+    toggleVolume,
 }) => {
     return (
         <footer className="toolbar">
@@ -46,6 +44,7 @@ const ToolBar: FC<ToolBarProps> = ({
                 <ChangeSound toggleVolume={toggleVolume} volume={volume} changeVolume={changeVolume} />
             </div>
         </footer>
-    )
-}
-export { ToolBar }
+    );
+};
+
+export { ToolBar };

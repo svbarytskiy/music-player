@@ -6,13 +6,14 @@ interface ProgressBarProps {
     progress: number;
 }
 
-const ProgressBar: FC<ProgressBarProps> = ({ updateProgress, progress = 50 }) => {
+const ProgressBar: FC<ProgressBarProps> = ({ updateProgress, progress }) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const progressBar = event.currentTarget;
         const rect = progressBar.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
         const newProgress = Math.min(Math.max((offsetX / rect.width) * 100, 0), 100);
-        updateProgress(newProgress);
+
+        updateProgress(newProgress); // Викликає handleProgressChange
     };
 
     return (

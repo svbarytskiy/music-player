@@ -1,65 +1,49 @@
-import { FC, useEffect, useState } from 'react';
-import './Player.css';
-import { usePlayer } from '../../helpers/usePlayer';
-import { LoudnessGraphic } from '../LoudnessGraphic/LoudnessGraphic';
-import { ToolBar } from '../ToolBar/ToolBar';
+import { FC } from "react";
+import "./Player.css";
+import { LoudnessGraphic } from "../LoudnessGraphic/LoudnessGraphic";
+import { ToolBar } from "../ToolBar/ToolBar";
+import { Upload } from "../Upload/Upload";
+import { useAudioPlayer } from "../../helpers/useAudioPlayer";
 
-interface PlayerProps {
-    author: string;
-    title: string;
-    audioSrc: string | null;
-}
-
-const Player: FC<PlayerProps> = ({ author, title, audioSrc }) => {
-    const { togglePlayPause,
-        stopPlaying,
-        setVolume,
+const Player: FC = () => {
+    const {
+        loudnessRef,
+        soundDriver,
         isPlaying,
         volume,
-        audioRef,
         progress,
         currentTime,
-        soundTime,
-        toggleVolume
-    } = usePlayer()
+        uploadAudio,
+        togglePlayPause,
+        changeVolume,
+        toggleVolume,
+        stopPlaying,
+        handleProgressChange
+    } = useAudioPlayer();
 
-    const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
-
-    useEffect(() => {
-        if (!audioSrc) return;
-
-        const fetchAudioBuffer = async () => {
-            try {
-                const audioContext = new AudioContext();
-                const response = await fetch(audioSrc);
-                const arrayBuffer = await response.arrayBuffer();
-                const buffer = await audioContext.decodeAudioData(arrayBuffer);
-                setAudioBuffer(buffer);
-            } catch (error) {
-                console.error("Помилка при отриманні AudioBuffer:", error);
-            }
-        };
-
-        fetchAudioBuffer();
-    }, [audioSrc]);
     return (
-        <section className="player">
-            <LoudnessGraphic duration={soundTime} audioBuffer={audioBuffer} />
-            <p>{author}</p>
-            <p>{title}</p>
-            <audio ref={audioRef} src={audioSrc || ''} />
-            <ToolBar
-                updateProgress={() => { }}
-                progress={progress}
-                togglePlayPause={togglePlayPause}
-                isPlay={isPlaying}
-                currentTime={currentTime}
-                soundTime={soundTime}
-                volume={volume}
-                stopPlaying={stopPlaying}
-                changeVolume={setVolume}
-                toggleVolume={toggleVolume} />
-        </section>
+        <>
+            <Upload onFileUpload={uploadAudio} />
+            <section className="player">
+                <div ref={loudnessRef}></div>
+                <LoudnessGraphic
+                    duration={soundDriver?.getBuffer()?.duration ?? 0}
+                    audioBuffer={soundDriver?.getBuffer() ?? null} updateProgress={handleProgressChange} progress={progress} />
+                <ToolBar
+                    updateProgress={handleProgressChange}
+                    progress={progress}
+                    togglePlayPause={togglePlayPause}
+                    isPlay={isPlaying}
+                    currentTime={currentTime}
+                    soundTime={soundDriver?.getBuffer()?.duration ?? 0}
+                    volume={volume}
+                    stopPlaying={stopPlaying}
+                    changeVolume={changeVolume}
+                    toggleVolume={toggleVolume}
+                />
+            </section>
+        </>
     );
-}
-export { Player }
+};
+
+export { Player };
