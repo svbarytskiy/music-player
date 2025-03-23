@@ -1,0 +1,78 @@
+.change-sound-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100px;
+}
+.volume-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #ffffff; 
+}
+
+.volume-button:hover {
+    color: #FA8A5D; 
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Стилізація "thumb" для різних браузерів */
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FA8A5D;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: -3px;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FA8A5D;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.volume-slider::-ms-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FA8A5D;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Стилізація доріжки слайдера */
+.volume-slider::-webkit-slider-runnable-track {
+    height: 5px;
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.volume-slider::-moz-range-track {
+    height: 5px;
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.volume-slider::-ms-track {
+    height: 5px;
+    background: #ccc;
+    border-radius: 4px;
+    border: none;
+}
