@@ -1,14 +1,15 @@
 import { FC } from "react";
 import "./Player.css";
-import { LoudnessGraphic } from "../LoudnessGraphic/LoudnessGraphic";
-import { ToolBar } from "../ToolBar/ToolBar";
-import { Upload } from "../Upload/Upload";
+import { LoudnessGraphic } from "../../components/LoudnessGraphic/LoudnessGraphic";
+import { ToolBar } from "../../components/ToolBar/ToolBar";
+import { Upload } from "../../components/Upload/Upload";
 import { useAudioPlayer } from "../../hooks/useAudioPlayer";
 
 const Player: FC = () => {
     const {
         loudnessRef,
-        soundDriver,
+        duration,
+        audioBuffer,
         isPlaying,
         volume,
         progress,
@@ -18,24 +19,24 @@ const Player: FC = () => {
         changeVolume,
         toggleVolume,
         stopPlaying,
-        handleProgressChange
+        handleProgressChange,
+        loading
     } = useAudioPlayer();
 
     return (
         <>
             <Upload onFileUpload={uploadAudio} />
             <section className="player">
-                <div ref={loudnessRef}></div>
                 <LoudnessGraphic
-                    duration={soundDriver?.getBuffer()?.duration ?? 0}
-                    audioBuffer={soundDriver?.getBuffer() ?? null} updateProgress={handleProgressChange} progress={progress} />
+                    duration={duration}
+                    audioBuffer={audioBuffer} updateProgress={handleProgressChange} progress={progress} containerRef={loudnessRef} loading={loading} />
                 <ToolBar
                     updateProgress={handleProgressChange}
                     progress={progress}
                     togglePlayPause={togglePlayPause}
                     isPlay={isPlaying}
                     currentTime={currentTime}
-                    soundTime={soundDriver?.getBuffer()?.duration ?? 0}
+                    soundTime={duration}
                     volume={volume}
                     stopPlaying={stopPlaying}
                     changeVolume={changeVolume}

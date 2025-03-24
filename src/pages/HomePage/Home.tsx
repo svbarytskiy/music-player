@@ -1,4 +1,4 @@
-import { Player } from "../../components/Player/Player"
+import { Player } from "../../modules/Player/Player"
 
 const Home = () => {
 

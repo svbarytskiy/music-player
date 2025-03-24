@@ -11,8 +11,8 @@ const Upload: FC<UploadProps> = ({ onFileUpload }) => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             const newFile = e.target.files[0];
-            onFileUpload(newFile);  // Notify the parent component about the new file
-            setFile(newFile);  // Update the state with the new file
+            onFileUpload(newFile);
+            setFile(newFile);
         }
     };
 
@@ -22,7 +22,7 @@ const Upload: FC<UploadProps> = ({ onFileUpload }) => {
                 type="file" 
                 className="upload" 
                 onChange={handleFileChange} 
-                key={file ? file.name : "fileInput"} // Ensures the input resets when a new file is selected
+                key={file ? file.name : "fileInput"}
             />
             {file && <p className="file-name">Selected file: {file.name}</p>}
         </div>
