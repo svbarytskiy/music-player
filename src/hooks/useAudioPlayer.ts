@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import SoundDriver from "./SoundDriver";
+import SoundDriver from "../services/SoundDriver";
 
 export const useAudioPlayer = () => {
     const [soundDriver, setSoundDriver] = useState<SoundDriver | null>(null);
@@ -72,7 +72,6 @@ export const useAudioPlayer = () => {
     };
 
     const handleProgressChange = (progress: number) => {
-        console.log("Progress changed to:", progress);
         soundDriver?.setCurrentTimeByPercentage(progress);
         setProgress(progress);
     };
@@ -88,6 +87,9 @@ export const useAudioPlayer = () => {
             const time = soundDriver.getCurrentTime();
             setCurrentTime(time);
             setProgress((time / buffer.duration) * 100);
+            if ((time / buffer.duration) * 100 >= 100) {
+                stopPlaying();
+            }
         };
 
         const interval = setInterval(updateProgress, 500);

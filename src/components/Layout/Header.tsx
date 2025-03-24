@@ -6,7 +6,7 @@ const Header: FC<HeaderProps> = () => {
     return (
         <header className="header">
             <nav className="nav">
-                <a href="/" className="logo">MusicPalyer</a>
+                <a href="/" className="logo">MusicPlayer</a>
                 <ul className="nav-list">
                     <li><a href="/" className="nav-link">Home</a></li>
                     <li><a href="/about" className="nav-link">About</a></li>

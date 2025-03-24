@@ -3,7 +3,7 @@ import "./Player.css";
 import { LoudnessGraphic } from "../LoudnessGraphic/LoudnessGraphic";
 import { ToolBar } from "../ToolBar/ToolBar";
 import { Upload } from "../Upload/Upload";
-import { useAudioPlayer } from "../../helpers/useAudioPlayer";
+import { useAudioPlayer } from "../../hooks/useAudioPlayer";
 
 const Player: FC = () => {
     const {

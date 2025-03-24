@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
-import Drawer from '../../helpers/Drawer';
+import Drawer from '../../services/Drawer';
 
 
 interface LoudnessGraphicProps {
@@ -22,10 +22,9 @@ const LoudnessGraphic: FC<LoudnessGraphicProps> = ({ audioBuffer, progress, upda
     useEffect(() => {
         if (containerRef.current && audioBuffer) {
             if (!drawerRef.current) {
-                // Передаємо updateProgress при ініціалізації Drawer
                 drawerRef.current = new Drawer(audioBuffer, containerRef.current, undefined, updateProgress);
             }
-            drawerRef.current.init(); // Викликаємо init() як раніше
+            drawerRef.current.init();
         }
     }, [audioBuffer]);
 
